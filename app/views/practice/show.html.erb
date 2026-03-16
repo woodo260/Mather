@@ -1,0 +1,26 @@
+<% content_for :title, "Practice – Mather" %>
+
+<%# Session stats bar %>
+<% total = practice_stats["correct"].to_i + practice_stats["incorrect"].to_i %>
+<div class="flex items-center justify-between mb-6">
+  <div class="flex items-center gap-4 text-sm text-gray-600">
+    <span>
+      <span class="font-semibold text-gray-900"><%= total %></span> answered this session
+    </span>
+    <% if total > 0 %>
+      <span>
+        <span class="font-semibold text-green-600"><%= (practice_stats["correct"].to_i * 100.0 / total).round %>%</span> correct
+      </span>
+    <% end %>
+  </div>
+  <div class="flex gap-2">
+    <%= link_to "Settings", settings_path,
+          class: "text-xs text-gray-500 hover:text-indigo-600 border border-gray-200 rounded-lg px-3 py-1.5 hover:border-indigo-300 transition-colors" %>
+    <%= link_to "Stats", stats_path,
+          class: "text-xs text-gray-500 hover:text-indigo-600 border border-gray-200 rounded-lg px-3 py-1.5 hover:border-indigo-300 transition-colors" %>
+  </div>
+</div>
+
+<div id="question-frame">
+  <%= render "question", question: @question %>
+</div>
