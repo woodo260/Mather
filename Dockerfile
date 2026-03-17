@@ -5,6 +5,8 @@
 # docker build -t mather .
 # docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name mather mather
 
+LABEL org.opencontainers.image.source=https://github.com/woodo260/Mather
+
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
@@ -74,4 +76,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "80"]
