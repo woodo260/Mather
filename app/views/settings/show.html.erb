@@ -1,0 +1,76 @@
+<% content_for :title, "Settings – Mather" %>
+
+<div class="space-y-8">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900">Settings</h1>
+    <p class="mt-1 text-gray-500">Choose which question types to practice and how difficult the numbers should be.</p>
+  </div>
+
+  <%= form_with url: settings_path, method: :patch, class: "space-y-8" do |f| %>
+
+    <%# Difficulty %>
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-1">Difficulty</h2>
+      <p class="text-sm text-gray-500 mb-5">Controls how many decimal places appear in numbers. Start at Beginner if you want whole numbers only.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <% [
+          { value: 0, label: "Beginner",     desc: "Whole numbers only", color: "green" },
+          { value: 1, label: "Intermediate", desc: "Up to 1 decimal",    color: "yellow" },
+          { value: 2, label: "Advanced",     desc: "Up to 2 decimals",   color: "orange" },
+          { value: 3, label: "Expert",       desc: "2–3 decimals + harder numbers", color: "red" },
+        ].each do |d| %>
+          <label class="cursor-pointer">
+            <%= radio_button_tag :difficulty, d[:value],
+                  (current_settings["difficulty"] || 0).to_i == d[:value],
+                  class: "sr-only peer",
+                  id: "difficulty_#{d[:value]}" %>
+            <div class="peer-checked:ring-2 peer-checked:ring-indigo-500 peer-checked:bg-indigo-50 border border-gray-200 rounded-xl p-4 hover:bg-gray-50 transition-all">
+              <div class="font-semibold text-gray-900 text-sm"><%= d[:label] %></div>
+              <div class="text-xs text-gray-500 mt-0.5"><%= d[:desc] %></div>
+            </div>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Question Types %>
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="text-lg font-semibold text-gray-900">Question Types</h2>
+        <div class="flex gap-2">
+          <button type="button" onclick="selectAll()" class="text-xs text-indigo-600 hover:underline">Select All</button>
+          <span class="text-gray-300">|</span>
+          <button type="button" onclick="selectNone()" class="text-xs text-indigo-600 hover:underline">Clear All</button>
+        </div>
+      </div>
+      <p class="text-sm text-gray-500 mb-5">Pick at least one. Questions are chosen randomly from your selection.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <% Questions::Registry.each do |key, klass| %>
+          <label class="cursor-pointer flex items-start gap-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50">
+            <%= check_box_tag "active_types[]", key,
+                  (current_settings["active_types"] || Questions::Registry.all_keys).include?(key),
+                  class: "mt-0.5 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 question-type-checkbox",
+                  id: "type_#{key}" %>
+            <div>
+              <div class="font-medium text-gray-900 text-sm"><%= klass.label %></div>
+              <div class="text-xs text-gray-500 mt-0.5"><%= klass.description %></div>
+            </div>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <%= f.submit "Save & Start Practicing",
+            class: "bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors cursor-pointer shadow-sm" %>
+    </div>
+
+  <% end %>
+</div>
+
+<script>
+  function selectAll()  { document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.checked = true); }
+  function selectNone() { document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.checked = false); }
+</script>
