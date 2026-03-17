@@ -4,7 +4,7 @@ module Questions
       { from: "inches",  to: "cm",     factor: 2.54,    reverse_factor: 1.0 / 2.54 },
       { from: "feet",    to: "meters", factor: 0.3048,  reverse_factor: 1.0 / 0.3048 },
       { from: "miles",   to: "km",     factor: 1.60934, reverse_factor: 1.0 / 1.60934 },
-      { from: "yards",   to: "meters", factor: 0.9144,  reverse_factor: 1.0 / 0.9144 },
+      { from: "yards",   to: "meters", factor: 0.9144,  reverse_factor: 1.0 / 0.9144 }
     ].freeze
 
     def self.key         = "length_conversion"

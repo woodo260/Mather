@@ -10,7 +10,7 @@ module Questions
       "temperature"         => "Questions::TemperatureQuestion",
       "tip_calculation"     => "Questions::TipQuestion",
       "speed_distance_time" => "Questions::SpeedDistanceTimeQuestion",
-      "simple_interest"     => "Questions::SimpleInterestQuestion",
+      "simple_interest"     => "Questions::SimpleInterestQuestion"
     }.freeze
 
     ALL_KEYS = TYPES.keys.freeze

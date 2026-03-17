@@ -7,7 +7,7 @@ module Questions
     SCENARIOS = [
       { vehicle: "car", speed_unit: "mph", distance_unit: "miles", speed_min: 25, speed_max: 75 },
       { vehicle: "bicycle", speed_unit: "mph", distance_unit: "miles", speed_min: 8, speed_max: 20 },
-      { vehicle: "runner", speed_unit: "mph", distance_unit: "miles", speed_min: 4, speed_max: 10 },
+      { vehicle: "runner", speed_unit: "mph", distance_unit: "miles", speed_min: 4, speed_max: 10 }
     ].freeze
 
     private

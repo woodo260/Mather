@@ -8,11 +8,11 @@ module Questions
 
     def generate!
       max = case @difficulty
-            when 0 then 12
-            when 1 then 20
-            when 2 then 30
-            else        50
-            end
+      when 0 then 12
+      when 1 then 20
+      when 2 then 30
+      else        50
+      end
 
       a = rand_int(2, max)
       b = rand_int(2, max)

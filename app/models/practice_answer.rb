@@ -43,7 +43,7 @@ class PracticeAnswer < ApplicationRecord
           label:    Questions::Registry[row.question_type]&.label || row.question_type.humanize,
           total:    row.total,
           correct:  row.correct_count,
-          accuracy: row.total.positive? ? (row.correct_count * 100.0 / row.total).round(1) : 0,
+          accuracy: row.total.positive? ? (row.correct_count * 100.0 / row.total).round(1) : 0
         }
       end
       .sort_by { |r| -r[:total] }
