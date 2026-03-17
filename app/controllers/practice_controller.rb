@@ -51,7 +51,7 @@ class PracticeController < ApplicationController
             user_answer: @user_answer,
             correct_answer: @correct_answer,
             prompt: @prompt,
-            explanation: @explanation,
+            explanation: @explanation
           }
         )
       end
@@ -81,7 +81,7 @@ class PracticeController < ApplicationController
       "type"        => @question.class.key,
       "answer"      => @question.answer,
       "prompt"      => @question.prompt,
-      "explanation" => @question.explanation,
+      "explanation" => @question.explanation
     }
   end
 end

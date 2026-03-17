@@ -12,9 +12,9 @@ module Questions
     def generate!
       rate = if @difficulty <= 1
                EASY_RATES.sample
-             else
+      else
                (EASY_RATES + HARD_RATES).sample
-             end
+      end
 
       price = rand_amount(min: 5, max: 200)
 

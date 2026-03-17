@@ -8,7 +8,7 @@ class SettingsController < ApplicationController
 
     session[:settings] = {
       "active_types" => types,
-      "difficulty"   => params[:difficulty].to_i.clamp(0, 3),
+      "difficulty"   => params[:difficulty].to_i.clamp(0, 3)
     }
 
     redirect_to practice_path, notice: "Settings saved!"

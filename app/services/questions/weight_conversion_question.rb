@@ -4,7 +4,7 @@ module Questions
       { from: "pounds", to: "kg",     factor: 0.453592, reverse_factor: 1.0 / 0.453592 },
       { from: "ounces", to: "grams",  factor: 28.3495,  reverse_factor: 1.0 / 28.3495 },
       { from: "stones", to: "kg",     factor: 6.35029,  reverse_factor: 1.0 / 6.35029 },
-      { from: "kg",     to: "pounds", factor: 2.20462,  reverse_factor: 1.0 / 2.20462 },
+      { from: "kg",     to: "pounds", factor: 2.20462,  reverse_factor: 1.0 / 2.20462 }
     ].freeze
 
     def self.key         = "weight_conversion"
