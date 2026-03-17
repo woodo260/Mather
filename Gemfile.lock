@@ -145,7 +145,8 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-smtp (0.4.0.1)
+    net-smtp (0.5.1)
+      net-protocol
     nio4r (2.7.5)
     nokogiri (1.19.1-x86_64-linux-gnu)
       racc (~> 1.4)
@@ -307,4 +308,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-  2.5.22
+   2.5.22
