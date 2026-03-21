@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input"]
+  static targets = ["input", "next"]
 
   connect() {
     // Auto-focus the input when the controller connects (new question loaded)
@@ -15,6 +15,14 @@ export default class extends Controller {
     if (event.key === "Enter") {
       event.preventDefault()
       this.element.requestSubmit()
+    }
+  }
+
+  // Navigate to next question on Enter when feedback is shown
+  next(event) {
+    if (event.key === "Enter" && this.hasNextTarget) {
+      event.preventDefault()
+      this.nextTarget.click()
     }
   }
 

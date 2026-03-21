@@ -43,7 +43,7 @@ class PracticeController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
+        render turbo_stream: turbo_stream.update(
           "question-frame",
           partial: "practice/feedback",
           locals: {
@@ -63,10 +63,10 @@ class PracticeController < ApplicationController
     generate_question
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
+        render turbo_stream: turbo_stream.update(
           "question-frame",
           partial: "practice/question",
-          locals: { question: @question }
+          locals: { question: @question, difficulty: difficulty }
         )
       end
       format.html { redirect_to practice_path }

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :ensure_session_token
   before_action :ensure_settings
 
-  helper_method :current_settings, :session_token, :practice_stats
+  helper_method :current_settings, :session_token, :practice_stats, :difficulty
 
   private
 

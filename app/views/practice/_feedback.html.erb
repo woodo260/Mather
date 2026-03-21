@@ -1,4 +1,5 @@
-<div class="bg-white rounded-2xl shadow-sm border overflow-hidden
+<div data-controller="answer" data-action="keydown@document->answer#next"
+     class="bg-white rounded-2xl shadow-sm border overflow-hidden
      <%= correct ? 'border-green-300' : 'border-red-300' %>">
 
   <%# Result banner %>
@@ -50,7 +51,7 @@
     <%# Next question button %>
     <div class="pt-2 flex justify-center">
       <%= link_to "Next Question →", next_practice_path,
-            data: { turbo_stream: true },
+            data: { turbo_stream: true, answer_target: "next" },
             class: "bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors shadow-sm inline-block" %>
     </div>
   </div>
