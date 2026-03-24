@@ -9,8 +9,13 @@ module Questions
       "percentage"          => "Questions::PercentageQuestion",
       "temperature"         => "Questions::TemperatureQuestion",
       "tip_calculation"     => "Questions::TipQuestion",
-      "speed_distance_time" => "Questions::SpeedDistanceTimeQuestion",
-      "simple_interest"     => "Questions::SimpleInterestQuestion"
+      "speed_distance_time"  => "Questions::SpeedDistanceTimeQuestion",
+      "simple_interest"      => "Questions::SimpleInterestQuestion",
+      "ohms_law"             => "Questions::OhmsLawQuestion",
+      "electrical_power"     => "Questions::ElectricalPowerQuestion",
+      "newtons_second_law"   => "Questions::NewtonsSecondLawQuestion",
+      "kinetic_energy"       => "Questions::KineticEnergyQuestion",
+      "work_energy"          => "Questions::WorkEnergyQuestion"
     }.freeze
 
     ALL_KEYS = TYPES.keys.freeze
