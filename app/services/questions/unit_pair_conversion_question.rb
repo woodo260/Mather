@@ -1,5 +1,10 @@
 module Questions
   class UnitPairConversionQuestion < BaseQuestion
+    # The suggested mental shortcuts use rounded factors (×1.6 for miles→km,
+    # ×2.5 for inches→cm, etc.), which drift ~0.5–2% from the exact answer.
+    # Accept answers within that band so the shortcut isn't punished.
+    def self.relative_tolerance = 0.03
+
     class << self
       attr_reader :from_unit, :to_unit, :conversion_factor, :max_input
 

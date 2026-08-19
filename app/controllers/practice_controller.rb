@@ -16,7 +16,7 @@ class PracticeController < ApplicationController
     user_input   = params[:answer].to_s.strip.gsub(/[$,]/, "")
     user_answer  = user_input.to_f
     correct_answer = stored["answer"].to_f
-    tolerance = ANSWER_TOLERANCE_BY_DIFFICULTY[difficulty] || 0.02
+    tolerance = answer_tolerance(stored["type"], correct_answer)
     @correct = (user_answer - correct_answer).abs <= tolerance
 
     @user_answer    = user_answer
@@ -76,6 +76,16 @@ class PracticeController < ApplicationController
   end
 
   private
+
+  # Combine the absolute per-difficulty floor with a question-type relative
+  # band, so approximation-based answers (unit conversions) aren't punished for
+  # the ~1% drift the suggested mental shortcuts introduce, while exact
+  # arithmetic keeps its tight tolerance.
+  def answer_tolerance(type, correct_answer)
+    absolute = ANSWER_TOLERANCE_BY_DIFFICULTY[difficulty] || 0.02
+    relative = (Questions::Registry[type]&.relative_tolerance || 0.0) * correct_answer.abs
+    [ absolute, relative ].max
+  end
 
   def generate_question
     @question = Questions::Generator.call(types: active_types, difficulty: difficulty)

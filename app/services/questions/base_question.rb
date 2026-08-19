@@ -6,6 +6,12 @@ module Questions
     def self.label = raise NotImplementedError
     def self.description = raise NotImplementedError
 
+    # Fraction of the answer's magnitude accepted on top of the absolute
+    # difficulty tolerance. Zero for exact-arithmetic questions; larger for
+    # questions whose suggested mental-math strategy is itself an approximation
+    # (e.g. converting miles to km with ×1.6 instead of ×1.60934).
+    def self.relative_tolerance = 0.0
+
     def initialize(difficulty: 0)
       @difficulty = difficulty.to_i.clamp(0, 3)
       @steps = []
