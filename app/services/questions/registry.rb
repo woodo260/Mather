@@ -25,6 +25,9 @@ module Questions
 
     ALL_KEYS = TYPES.keys.freeze
 
+    # Types enabled for a brand-new session (or after clearing all selections).
+    DEFAULT_KEYS = %w[times_tables].freeze
+
     # Groups question types for display (e.g. collapsible sections in Settings).
     # Every key in TYPES must appear in exactly one category here.
     CATEGORIES = {
@@ -37,6 +40,8 @@ module Questions
     }.freeze
 
     def self.all_keys = ALL_KEYS
+
+    def self.default_keys = DEFAULT_KEYS
 
     def self.categories = CATEGORIES
 

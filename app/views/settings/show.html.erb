@@ -35,9 +35,6 @@
     </div>
 
     <%# Question Types %>
-    <% collapsed_by_default = %w[Physics Electrical] %>
-    <% active_types = current_settings["active_types"] || Questions::Registry.all_keys %>
-
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
       <div class="flex items-center justify-between mb-1">
         <h2 class="text-lg font-semibold text-gray-900">Question Types</h2>
@@ -52,7 +49,7 @@
       <div class="space-y-3">
         <% Questions::Registry.categories.each do |category, keys| %>
           <% enabled_count = (keys & active_types).size %>
-          <details class="group border border-gray-200 rounded-xl" <%= "open" unless collapsed_by_default.include?(category) %>>
+          <details class="group border border-gray-200 rounded-xl" data-category="<%= category %>">
             <summary class="cursor-pointer list-none flex items-center justify-between px-4 py-3 hover:bg-gray-50 rounded-xl">
               <div class="flex items-center gap-2">
                 <svg class="w-4 h-4 text-gray-400 group-open:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,7 +57,7 @@
                 </svg>
                 <span class="font-semibold text-gray-900 text-sm"><%= category %></span>
               </div>
-              <span class="text-xs text-gray-400"><%= enabled_count %>/<%= keys.size %> enabled</span>
+              <span class="text-xs text-gray-400 question-type-count"><%= enabled_count %>/<%= keys.size %> enabled</span>
             </summary>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 px-4 pb-4 pt-1">
               <% keys.each do |key| %>
@@ -91,6 +88,17 @@
 </div>
 
 <script>
-  function selectAll()  { document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.checked = true); }
-  function selectNone() { document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.checked = false); }
+  function updateTypeCounts() {
+    document.querySelectorAll('details[data-category]').forEach(details => {
+      const boxes   = details.querySelectorAll('.question-type-checkbox');
+      const enabled = Array.from(boxes).filter(cb => cb.checked).length;
+      const countEl = details.querySelector('.question-type-count');
+      if (countEl) countEl.textContent = `${enabled}/${boxes.length} enabled`;
+    });
+  }
+
+  function selectAll()  { document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.checked = true); updateTypeCounts(); }
+  function selectNone() { document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.checked = false); updateTypeCounts(); }
+
+  document.querySelectorAll('.question-type-checkbox').forEach(cb => cb.addEventListener('change', updateTypeCounts));
 </script>

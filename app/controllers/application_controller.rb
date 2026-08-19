@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :ensure_session_token
   before_action :ensure_settings
 
-  helper_method :current_settings, :session_token, :practice_stats, :difficulty
+  helper_method :current_settings, :session_token, :practice_stats, :difficulty, :active_types
 
   private
 
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def active_types
-    current_settings["active_types"] || Questions::Registry.all_keys
+    current_settings["active_types"] || Questions::Registry.default_keys
   end
 
   def difficulty

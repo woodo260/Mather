@@ -4,7 +4,7 @@ class SettingsController < ApplicationController
 
   def update
     types = Array(params[:active_types]).select { |t| Questions::Registry.key?(t) }
-    types = Questions::Registry.all_keys.dup if types.empty?
+    types = Questions::Registry.default_keys.dup if types.empty?
 
     session[:settings] = {
       "active_types" => types,
