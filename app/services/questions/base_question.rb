@@ -41,13 +41,24 @@ module Questions
     # format_number truncates decimals at difficulty 0, which would render
     # intermediates like "10% of 137 = 13.7" as "13". Shows up to 2 decimals,
     # trims trailing zeros.
-    def fmt_step(value)
-      v = value.to_f.round(2)
+    def fmt_step(value, precision = 2)
+      v = value.to_f.round(precision)
       whole?(v) ? v.to_i.to_s : v.to_s
     end
 
     def whole?(value)
       value.to_f == value.to_f.to_i
+    end
+
+    # Result portion of an "Exact" step: the unrounded value first, then the
+    # rounded answer when rounding changes what's displayed.
+    def exact_result(raw, rounded, prefix: "")
+      raw_txt = fmt_step(raw, 4)
+      if raw_txt == fmt_step(rounded, 4)
+        "#{prefix}#{format_number(rounded)}"
+      else
+        "#{prefix}#{raw_txt}, rounded to #{prefix}#{format_number(rounded)}"
+      end
     end
 
     # Mental-math steps for x × y. Place-value partial products when both are

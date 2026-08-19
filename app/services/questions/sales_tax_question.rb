@@ -30,7 +30,7 @@ module Questions
         step "The total already includes the #{fmt_step(rate)}% tax"
         step "Total = price × #{divisor}, so divide to undo it"
         step "Estimate: $#{fmt_step(total)} − #{fmt_step(rate)}% ≈ $#{fmt_step(total * (1 - rate / 100.0))} (slightly low)"
-        step "Exact: $#{fmt_step(total)} ÷ #{divisor} = $#{format_number(price)}"
+        step "Exact: $#{fmt_step(total)} ÷ #{divisor} = #{exact_result(total / (1 + rate / 100.0), price, prefix: '$')}"
       else
         tax    = round_to(price * rate / 100.0)
         total  = round_to(price + tax)

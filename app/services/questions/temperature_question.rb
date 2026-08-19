@@ -58,7 +58,7 @@ module Questions
       step "°F = °C × 1.8 + 32. Trick for ×1.8: double, then subtract 10%"
       step "Double: #{fmt_step(celsius)} × 2 = #{fmt_step(doubled)}"
       step "Minus 10%: #{fmt_step(doubled)} − #{fmt_step(doubled / 10)} = #{fmt_step(doubled * 0.9)}"
-      step "Add 32: #{fmt_step(doubled * 0.9)} + 32 = #{format_number(fahr)}°F"
+      step "Add 32: #{fmt_step(doubled * 0.9)} + 32 = #{exact_result(doubled * 0.9 + 32, fahr)}°F"
     end
 
     def f_to_c_steps(fahr, celsius)
@@ -66,7 +66,7 @@ module Questions
       step "°C = (°F − 32) × 5/9"
       step "Subtract 32: #{fmt_step(fahr)} − 32 = #{fmt_step(diff)}"
       step "Estimate 5/9 ≈ 0.55: half of #{fmt_step(diff)} plus a tenth of that ≈ #{fmt_step(diff * 0.55)}"
-      step "Exact: #{fmt_step(diff)} × 5 ÷ 9 = #{format_number(celsius)}°C"
+      step "Exact: #{fmt_step(diff)} × 5 ÷ 9 = #{exact_result(diff * 5 / 9.0, celsius)}°C"
     end
   end
 end
