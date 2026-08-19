@@ -35,9 +35,8 @@
     </div>
 
     <%# Question Types %>
-    <% length_keys = %w[length_miles_km length_feet_meters length_inches_cm length_yards_meters] %>
-    <% weight_keys = %w[weight_pounds_kg weight_ounces_grams weight_stones_kg] %>
-    <% other_keys  = Questions::Registry.all_keys - length_keys - weight_keys %>
+    <% collapsed_by_default = %w[Physics Electrical] %>
+    <% active_types = current_settings["active_types"] || Questions::Registry.all_keys %>
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
       <div class="flex items-center justify-between mb-1">
@@ -50,40 +49,37 @@
       </div>
       <p class="text-sm text-gray-500 mb-5">Pick at least one. Questions are chosen randomly from your selection.</p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <% other_keys.each do |key| %>
-          <% klass = Questions::Registry[key] %>
-          <label class="cursor-pointer flex items-start gap-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50">
-            <%= check_box_tag "active_types[]", key,
-                  (current_settings["active_types"] || Questions::Registry.all_keys).include?(key),
-                  class: "mt-0.5 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 question-type-checkbox",
-                  id: "type_#{key}" %>
-            <div>
-              <div class="font-medium text-gray-900 text-sm"><%= klass.label %></div>
-              <div class="text-xs text-gray-500 mt-0.5"><%= klass.description %></div>
+      <div class="space-y-3">
+        <% Questions::Registry.categories.each do |category, keys| %>
+          <% enabled_count = (keys & active_types).size %>
+          <details class="group border border-gray-200 rounded-xl" <%= "open" unless collapsed_by_default.include?(category) %>>
+            <summary class="cursor-pointer list-none flex items-center justify-between px-4 py-3 hover:bg-gray-50 rounded-xl">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-gray-400 group-open:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <span class="font-semibold text-gray-900 text-sm"><%= category %></span>
+              </div>
+              <span class="text-xs text-gray-400"><%= enabled_count %>/<%= keys.size %> enabled</span>
+            </summary>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 px-4 pb-4 pt-1">
+              <% keys.each do |key| %>
+                <% klass = Questions::Registry[key] %>
+                <label class="cursor-pointer flex items-start gap-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50">
+                  <%= check_box_tag "active_types[]", key,
+                        active_types.include?(key),
+                        class: "mt-0.5 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 question-type-checkbox",
+                        id: "type_#{key}" %>
+                  <div>
+                    <div class="font-medium text-gray-900 text-sm"><%= klass.label %></div>
+                    <div class="text-xs text-gray-500 mt-0.5"><%= klass.description %></div>
+                  </div>
+                </label>
+              <% end %>
             </div>
-          </label>
+          </details>
         <% end %>
       </div>
-
-      <% [["Length Conversions", length_keys], ["Weight Conversions", weight_keys]].each do |heading, keys| %>
-        <h3 class="text-sm font-semibold text-gray-700 mt-6 mb-3"><%= heading %></h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <% keys.each do |key| %>
-            <% klass = Questions::Registry[key] %>
-            <label class="cursor-pointer flex items-start gap-3 p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50">
-              <%= check_box_tag "active_types[]", key,
-                    (current_settings["active_types"] || Questions::Registry.all_keys).include?(key),
-                    class: "mt-0.5 h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 question-type-checkbox",
-                    id: "type_#{key}" %>
-              <div>
-                <div class="font-medium text-gray-900 text-sm"><%= klass.label %></div>
-                <div class="text-xs text-gray-500 mt-0.5"><%= klass.description %></div>
-              </div>
-            </label>
-          <% end %>
-        </div>
-      <% end %>
     </div>
 
     <div class="flex justify-end">

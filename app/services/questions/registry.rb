@@ -25,7 +25,20 @@ module Questions
 
     ALL_KEYS = TYPES.keys.freeze
 
+    # Groups question types for display (e.g. collapsible sections in Settings).
+    # Every key in TYPES must appear in exactly one category here.
+    CATEGORIES = {
+      "Everyday Math"          => %w[times_tables division sales_tax percentage tip_calculation simple_interest],
+      "Length Conversion"      => %w[length_miles_km length_feet_meters length_inches_cm length_yards_meters],
+      "Weight Conversion"      => %w[weight_pounds_kg weight_ounces_grams weight_stones_kg],
+      "Temperature Conversion" => %w[temperature],
+      "Physics"                => %w[speed_distance_time newtons_second_law kinetic_energy work_energy],
+      "Electrical"             => %w[ohms_law electrical_power]
+    }.freeze
+
     def self.all_keys = ALL_KEYS
+
+    def self.categories = CATEGORIES
 
     def self.[](key)
       class_name = TYPES[key]
