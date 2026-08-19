@@ -43,7 +43,7 @@
 
     <%# Explanation / walkthrough %>
     <% steps = local_assigns[:steps] || [] %>
-    <% if !correct && steps.any? %>
+    <% if steps.any? %>
       <div class="bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 rounded-xl px-5 py-4 text-sm">
         <p class="font-semibold text-indigo-600 dark:text-indigo-400 mb-2">How to solve it</p>
         <ol class="space-y-1.5">
