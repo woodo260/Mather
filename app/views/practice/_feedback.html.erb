@@ -1,9 +1,9 @@
 <div data-controller="answer" data-action="keydown@document->answer#next"
-     class="bg-white rounded-2xl shadow-sm border overflow-hidden
-     <%= correct ? 'border-green-300' : 'border-red-300' %>">
+     class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border overflow-hidden
+     <%= correct ? 'border-green-300 dark:border-green-700' : 'border-red-300 dark:border-red-700' %>">
 
   <%# Result banner %>
-  <div class="px-6 py-4 <%= correct ? 'bg-green-50 border-b border-green-100' : 'bg-red-50 border-b border-red-100' %>">
+  <div class="px-6 py-4 <%= correct ? 'bg-green-50 dark:bg-green-950/30 border-b border-green-100 dark:border-green-900' : 'bg-red-50 dark:bg-red-950/30 border-b border-red-100 dark:border-red-900' %>">
     <div class="flex items-center gap-3">
       <% if correct %>
         <div class="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
@@ -11,40 +11,40 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
           </svg>
         </div>
-        <span class="text-green-800 font-bold text-lg">Correct!</span>
+        <span class="text-green-800 dark:text-green-300 font-bold text-lg">Correct!</span>
       <% else %>
         <div class="flex-shrink-0 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </div>
-        <span class="text-red-800 font-bold text-lg">Not quite</span>
+        <span class="text-red-800 dark:text-red-300 font-bold text-lg">Not quite</span>
       <% end %>
     </div>
   </div>
 
   <div class="p-8 space-y-4">
     <%# Original question %>
-    <p class="text-xl font-bold text-gray-900 text-center"><%= prompt %></p>
+    <p class="text-xl font-bold text-gray-900 dark:text-gray-100 text-center"><%= prompt %></p>
 
     <%# Answer comparison %>
-    <div class="rounded-xl <%= correct ? 'bg-green-50' : 'bg-red-50' %> px-5 py-4 space-y-2 text-sm">
+    <div class="rounded-xl <%= correct ? 'bg-green-50 dark:bg-green-950/20' : 'bg-red-50 dark:bg-red-950/20' %> px-5 py-4 space-y-2 text-sm">
       <% unless correct %>
         <div class="flex justify-between">
-          <span class="text-gray-500">Your answer:</span>
-          <span class="font-mono font-semibold text-red-700"><%= format_answer(user_answer) %></span>
+          <span class="text-gray-500 dark:text-gray-400">Your answer:</span>
+          <span class="font-mono font-semibold text-red-700 dark:text-red-400"><%= format_answer(user_answer) %></span>
         </div>
       <% end %>
       <div class="flex justify-between">
-        <span class="text-gray-500">Correct answer:</span>
-        <span class="font-mono font-semibold <%= correct ? 'text-green-700' : 'text-gray-900' %>"><%= format_answer(correct_answer) %></span>
+        <span class="text-gray-500 dark:text-gray-400">Correct answer:</span>
+        <span class="font-mono font-semibold <%= correct ? 'text-green-700 dark:text-green-400' : 'text-gray-900 dark:text-gray-100' %>"><%= format_answer(correct_answer) %></span>
       </div>
     </div>
 
     <%# Explanation %>
     <% if explanation.present? %>
-      <div class="bg-gray-50 border border-gray-100 rounded-xl px-5 py-3 text-sm text-gray-600">
-        <span class="font-medium text-gray-700">How: </span><%= explanation %>
+      <div class="bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 rounded-xl px-5 py-3 text-sm text-gray-600 dark:text-gray-400">
+        <span class="font-medium text-gray-700 dark:text-gray-300">How: </span><%= explanation %>
       </div>
     <% end %>
 

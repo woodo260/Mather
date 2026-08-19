@@ -3,6 +3,7 @@
   <head>
     <title><%= content_for(:title) || "Mather" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
@@ -11,19 +12,19 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-50 min-h-screen text-gray-900">
+  <body class="bg-gray-50 dark:bg-gray-950 min-h-screen text-gray-900 dark:text-gray-100">
 
     <%# Navigation %>
-    <nav class="bg-white border-b border-gray-200 shadow-sm">
+    <nav class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" class="text-2xl font-bold text-indigo-600 tracking-tight">Mather</a>
+        <a href="/" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">Mather</a>
         <div class="flex gap-6 text-sm font-medium">
           <%= link_to "Practice", practice_path,
-                class: "text-gray-600 hover:text-indigo-600 transition-colors #{controller_name == 'practice' ? 'text-indigo-600 font-semibold' : ''}" %>
+                class: "text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors #{controller_name == 'practice' ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : ''}" %>
           <%= link_to "Stats", stats_path,
-                class: "text-gray-600 hover:text-indigo-600 transition-colors #{controller_name == 'stats' ? 'text-indigo-600 font-semibold' : ''}" %>
+                class: "text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors #{controller_name == 'stats' ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : ''}" %>
           <%= link_to "Settings", settings_path,
-                class: "text-gray-600 hover:text-indigo-600 transition-colors #{controller_name == 'settings' ? 'text-indigo-600 font-semibold' : ''}" %>
+                class: "text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors #{controller_name == 'settings' ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : ''}" %>
         </div>
       </div>
     </nav>
@@ -31,7 +32,7 @@
     <%# Flash messages %>
     <% if notice %>
       <div class="max-w-3xl mx-auto px-4 pt-4">
-        <div class="bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm">
+        <div class="bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-900 text-green-800 dark:text-green-300 rounded-lg px-4 py-3 text-sm">
           <%= notice %>
         </div>
       </div>

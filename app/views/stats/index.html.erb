@@ -2,67 +2,67 @@
 
 <div class="space-y-8">
   <div>
-    <h1 class="text-3xl font-bold text-gray-900">Your Stats</h1>
-    <p class="mt-1 text-gray-500">All-time history for this browser session.</p>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Your Stats</h1>
+    <p class="mt-1 text-gray-500 dark:text-gray-400">All-time history for this browser session.</p>
   </div>
 
   <%# Streak + overall summary %>
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-    <div class="bg-white border border-gray-200 rounded-2xl p-5 text-center shadow-sm">
-      <div class="text-4xl font-bold text-indigo-600">
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 text-center shadow-sm">
+      <div class="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
         <%= @streak %>
       </div>
-      <div class="text-sm text-gray-500 mt-1">
+      <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
         day<%= @streak == 1 ? "" : "s" %> streak
         <%= "🔥" if @streak >= 3 %>
       </div>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-2xl p-5 text-center shadow-sm">
-      <div class="text-4xl font-bold text-gray-900"><%= @total_answered %></div>
-      <div class="text-sm text-gray-500 mt-1">total answered</div>
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 text-center shadow-sm">
+      <div class="text-4xl font-bold text-gray-900 dark:text-gray-100"><%= @total_answered %></div>
+      <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">total answered</div>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-2xl p-5 text-center shadow-sm">
-      <div class="text-4xl font-bold text-green-600"><%= @total_correct %></div>
-      <div class="text-sm text-gray-500 mt-1">correct</div>
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 text-center shadow-sm">
+      <div class="text-4xl font-bold text-green-600 dark:text-green-400"><%= @total_correct %></div>
+      <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">correct</div>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-2xl p-5 text-center shadow-sm">
-      <div class="text-4xl font-bold <%= @overall_accuracy >= 80 ? 'text-green-600' : @overall_accuracy >= 60 ? 'text-yellow-600' : 'text-red-500' %>">
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 text-center shadow-sm">
+      <div class="text-4xl font-bold <%= @overall_accuracy >= 80 ? 'text-green-600 dark:text-green-400' : @overall_accuracy >= 60 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-500 dark:text-red-400' %>">
         <%= @overall_accuracy %>%
       </div>
-      <div class="text-sm text-gray-500 mt-1">overall accuracy</div>
+      <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">overall accuracy</div>
     </div>
   </div>
 
   <% if @total_answered == 0 %>
-    <div class="bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-sm">
-      <p class="text-gray-400 text-lg">No practice sessions yet.</p>
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-12 text-center shadow-sm">
+      <p class="text-gray-400 dark:text-gray-500 text-lg">No practice sessions yet.</p>
       <%= link_to "Start practicing →", practice_path,
             class: "mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors" %>
     </div>
   <% else %>
 
     <%# Accuracy by question type %>
-    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-100">
-        <h2 class="text-lg font-semibold text-gray-900">Accuracy by Type</h2>
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Accuracy by Type</h2>
       </div>
-      <div class="divide-y divide-gray-100">
+      <div class="divide-y divide-gray-100 dark:divide-gray-800">
         <% @accuracy_by_type.each do |row| %>
           <div class="px-6 py-4">
             <div class="flex items-center justify-between mb-2">
-              <span class="font-medium text-gray-900 text-sm"><%= row[:label] %></span>
+              <span class="font-medium text-gray-900 dark:text-gray-100 text-sm"><%= row[:label] %></span>
               <div class="flex items-center gap-3 text-sm">
-                <span class="text-gray-400"><%= row[:correct] %>/<%= row[:total] %></span>
-                <span class="font-bold w-12 text-right <%= row[:accuracy] >= 80 ? 'text-green-600' : row[:accuracy] >= 60 ? 'text-yellow-600' : 'text-red-500' %>">
+                <span class="text-gray-400 dark:text-gray-500"><%= row[:correct] %>/<%= row[:total] %></span>
+                <span class="font-bold w-12 text-right <%= row[:accuracy] >= 80 ? 'text-green-600 dark:text-green-400' : row[:accuracy] >= 60 ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-500 dark:text-red-400' %>">
                   <%= row[:accuracy] %>%
                 </span>
               </div>
             </div>
             <%# Progress bar %>
-            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div class="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
               <div class="h-full rounded-full transition-all <%= row[:accuracy] >= 80 ? 'bg-green-500' : row[:accuracy] >= 60 ? 'bg-yellow-500' : 'bg-red-400' %>"
                    style="width: <%= row[:accuracy] %>%"></div>
             </div>
@@ -72,29 +72,29 @@
     </div>
 
     <%# Recent activity %>
-    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-      <div class="px-6 py-4 border-b border-gray-100">
-        <h2 class="text-lg font-semibold text-gray-900">Recent Activity</h2>
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Activity</h2>
       </div>
-      <div class="divide-y divide-gray-100">
+      <div class="divide-y divide-gray-100 dark:divide-gray-800">
         <% @recent_answers.each do |answer| %>
           <div class="px-6 py-3 flex items-center gap-3">
             <% if answer.correct %>
-              <span class="flex-shrink-0 w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
-                <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span class="flex-shrink-0 w-5 h-5 bg-green-100 dark:bg-green-900/40 rounded-full flex items-center justify-center">
+                <svg class="w-3 h-3 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
                 </svg>
               </span>
             <% else %>
-              <span class="flex-shrink-0 w-5 h-5 bg-red-100 rounded-full flex items-center justify-center">
-                <svg class="w-3 h-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span class="flex-shrink-0 w-5 h-5 bg-red-100 dark:bg-red-900/40 rounded-full flex items-center justify-center">
+                <svg class="w-3 h-3 text-red-500 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
               </span>
             <% end %>
             <div class="flex-1 min-w-0">
-              <p class="text-sm text-gray-700 truncate"><%= answer.prompt %></p>
-              <p class="text-xs text-gray-400"><%= Questions::Registry[answer.question_type]&.label %> · <%= answer.created_at.strftime("%b %-d at %-I:%M %p") %></p>
+              <p class="text-sm text-gray-700 dark:text-gray-300 truncate"><%= answer.prompt %></p>
+              <p class="text-xs text-gray-400 dark:text-gray-500"><%= Questions::Registry[answer.question_type]&.label %> · <%= answer.created_at.strftime("%b %-d at %-I:%M %p") %></p>
             </div>
           </div>
         <% end %>
