@@ -17,6 +17,10 @@ module Questions
         @answer      = result.to_f
         @hint        = "How many times does #{b} go into #{a}?"
         @explanation = "#{a} ÷ #{b} = #{result}"
+
+        step "Ask: #{b} × ? = #{a}"
+        step "Halve both: #{a / 2} ÷ #{b / 2} — same answer, smaller numbers" if b.even? && b > 2
+        step "#{b} × #{result} = #{a}, so #{a} ÷ #{b} = #{result}"
       else
         # Potentially non-integer quotients
         max_dividend = [ 12, 50, 100, 200 ][@difficulty]
@@ -28,6 +32,17 @@ module Questions
         @answer      = result
         @hint        = "#{b} goes into #{a} approximately #{(a / b.to_f).floor} times"
         @explanation = "#{a} ÷ #{b} = #{format_number(result)}"
+
+        whole = a / b
+        rem   = a - whole * b
+        step "#{b} × #{whole} = #{whole * b} — so #{b} goes in #{whole} times"
+        if rem.zero?
+          step "It divides evenly: #{a} ÷ #{b} = #{whole}"
+        else
+          step "Remainder: #{a} − #{whole * b} = #{rem}"
+          step "Decimal part: #{rem} ÷ #{b} = #{fmt_step(rem.to_f / b)}"
+          step "#{a} ÷ #{b} = #{whole} + #{fmt_step(rem.to_f / b)} ≈ #{format_number(result)}"
+        end
       end
     end
   end

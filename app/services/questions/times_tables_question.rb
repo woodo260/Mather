@@ -22,6 +22,15 @@ module Questions
       @answer      = result.to_f
       @hint        = "Think of #{a} groups of #{b}"
       @explanation = "#{a} × #{b} = #{result}"
+
+      if a <= 12 && b <= 12
+        big, small = [ a, b ].minmax.reverse
+        step "Times-table fact: #{a} × #{b} = #{result}"
+        step "Check: #{small} × #{big - 1} = #{small * (big - 1)}, add one more #{small} → #{result}"
+      else
+        multiplication_steps(a, b)
+        step "So #{a} × #{b} = #{result}"
+      end
     end
   end
 end

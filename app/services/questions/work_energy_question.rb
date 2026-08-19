@@ -32,16 +32,28 @@ module Questions
         @answer      = work
         @hint        = "W = F × d"
         @explanation = "W = #{format_number(force)} N × #{format_number(distance)} m = #{format_number(work)} J"
+
+        step "W = F × d"
+        multiplication_steps(force, distance)
+        step "W = #{format_number(work)} J"
       when :force
         @prompt      = "#{format_number(work)} J of work is done #{scenario[:action]} over a distance of #{format_number(distance)} m. What force was applied in Newtons (N)?"
         @answer      = round_to(force)
         @hint        = "F = W ÷ d"
         @explanation = "F = #{format_number(work)} J ÷ #{format_number(distance)} m = #{format_number(force)} N"
+
+        step "F = W ÷ d"
+        division_steps(work, distance, force)
+        step "F = #{format_number(force)} N"
       when :distance
         @prompt      = "#{format_number(work)} J of work is done #{scenario[:action]} with a constant force of #{format_number(force)} N. What distance was covered in meters (m)?"
         @answer      = round_to(distance)
         @hint        = "d = W ÷ F"
         @explanation = "d = #{format_number(work)} J ÷ #{format_number(force)} N = #{format_number(distance)} m"
+
+        step "d = W ÷ F"
+        division_steps(work, force, distance)
+        step "d = #{format_number(distance)} m"
       end
     end
   end

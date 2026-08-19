@@ -32,16 +32,28 @@ module Questions
         @answer      = voltage
         @hint        = "V = I × R"
         @explanation = "V = #{format_number(current)} A × #{resistance} Ω = #{format_number(voltage)} V"
+
+        step "V = I × R"
+        multiplication_steps(current, resistance)
+        step "V = #{format_number(voltage)} V"
       when :current
         @prompt      = "In #{context}, the voltage is #{format_number(voltage)} V and the resistance is #{resistance} Ω. What is the current in amps (A)?"
         @answer      = round_to(current)
         @hint        = "I = V ÷ R"
         @explanation = "I = #{format_number(voltage)} V ÷ #{resistance} Ω = #{format_number(current)} A"
+
+        step "I = V ÷ R"
+        division_steps(voltage, resistance, current)
+        step "I = #{format_number(current)} A"
       when :resistance
         @prompt      = "In #{context}, the voltage is #{format_number(voltage)} V and the current is #{format_number(current)} A. What is the resistance in ohms (Ω)?"
         @answer      = resistance.to_f
         @hint        = "R = V ÷ I"
         @explanation = "R = #{format_number(voltage)} V ÷ #{format_number(current)} A = #{resistance} Ω"
+
+        step "R = V ÷ I"
+        division_steps(voltage, current, resistance)
+        step "R = #{resistance} Ω"
       end
     end
   end

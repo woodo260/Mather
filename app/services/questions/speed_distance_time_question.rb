@@ -28,16 +28,28 @@ module Questions
         @answer      = distance
         @hint        = "Distance = Speed × Time"
         @explanation = "#{format_number(speed)} × #{format_number(time_hrs)} = #{format_number(distance)} #{scenario[:distance_unit]}"
+
+        step "Distance = Speed × Time"
+        multiplication_steps(speed, time_hrs)
+        step "Distance = #{format_number(distance)} #{scenario[:distance_unit]}"
       when :time
         @prompt      = "A #{scenario[:vehicle]} travels #{format_number(distance)} #{scenario[:distance_unit]} at #{format_number(speed)} #{scenario[:speed_unit]}. How many hours does the trip take?"
         @answer      = round_to(time_hrs)
         @hint        = "Time = Distance ÷ Speed"
         @explanation = "#{format_number(distance)} ÷ #{format_number(speed)} = #{format_number(time_hrs)} hours"
+
+        step "Time = Distance ÷ Speed"
+        division_steps(distance, speed, time_hrs)
+        step "Time = #{format_number(time_hrs)} hours"
       when :speed
         @prompt      = "A #{scenario[:vehicle]} covers #{format_number(distance)} #{scenario[:distance_unit]} in #{format_number(time_hrs)} hours. What is its speed in #{scenario[:speed_unit]}?"
         @answer      = round_to(speed)
         @hint        = "Speed = Distance ÷ Time"
         @explanation = "#{format_number(distance)} ÷ #{format_number(time_hrs)} = #{format_number(speed)} #{scenario[:speed_unit]}"
+
+        step "Speed = Distance ÷ Time"
+        division_steps(distance, time_hrs, speed)
+        step "Speed = #{format_number(speed)} #{scenario[:speed_unit]}"
       end
     end
   end

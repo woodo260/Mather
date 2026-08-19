@@ -33,6 +33,15 @@ module Questions
         @hint        = "Interest = Principal × Rate × Time = $#{format_number(principal)} × #{rate} × #{years}"
         @explanation = "$#{format_number(principal)} × #{rate} × #{years} = $#{format_number(interest)}"
       end
+
+      step "First find ONE year's interest: #{rate_pct}% of $#{fmt_step(principal)}"
+      percent_of_steps(rate_pct, principal, prefix: "$")
+      step "× #{years} years: $#{fmt_step(principal * rate)} × #{years} = $#{fmt_step(interest)}" if years > 1
+      if ask_total
+        step "Total = principal + interest: $#{fmt_step(principal)} + $#{fmt_step(interest)} = $#{format_number(total)}"
+      else
+        step "Interest = $#{format_number(interest)}"
+      end
     end
   end
 end

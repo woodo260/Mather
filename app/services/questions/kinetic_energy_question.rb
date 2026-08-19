@@ -25,6 +25,13 @@ module Questions
       @answer      = ke
       @hint        = "KE = ½ × m × v²"
       @explanation = "KE = 0.5 × #{format_number(mass)} kg × (#{format_number(speed)} m/s)² = #{format_number(ke)} J"
+
+      v2     = speed * speed
+      half_m = 0.5 * mass
+      step "KE = ½ × m × v² — square the speed first"
+      step "v² = #{fmt_step(speed)} × #{fmt_step(speed)} = #{fmt_step(v2)}"
+      step "Half the mass: #{fmt_step(mass)} ÷ 2 = #{fmt_step(half_m)}"
+      step "Multiply: #{fmt_step(half_m)} × #{fmt_step(v2)} = #{format_number(ke)} J"
     end
   end
 end

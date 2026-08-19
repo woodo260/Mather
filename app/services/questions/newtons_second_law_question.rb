@@ -32,16 +32,28 @@ module Questions
         @answer      = force
         @hint        = "F = m × a"
         @explanation = "F = #{format_number(mass)} kg × #{format_number(acceleration)} m/s² = #{format_number(force)} N"
+
+        step "F = m × a"
+        multiplication_steps(mass, acceleration)
+        step "F = #{format_number(force)} N"
       when :mass
         @prompt      = "A net force of #{format_number(force)} N causes #{scenario[:subject]} to accelerate at #{format_number(acceleration)} m/s². What is its mass in kg?"
         @answer      = round_to(mass)
         @hint        = "m = F ÷ a"
         @explanation = "m = #{format_number(force)} N ÷ #{format_number(acceleration)} m/s² = #{format_number(mass)} kg"
+
+        step "m = F ÷ a"
+        division_steps(force, acceleration, mass)
+        step "m = #{format_number(mass)} kg"
       when :acceleration
         @prompt      = "A net force of #{format_number(force)} N acts on #{scenario[:subject]} with a mass of #{format_number(mass)} kg. What is its acceleration in m/s²?"
         @answer      = round_to(acceleration)
         @hint        = "a = F ÷ m"
         @explanation = "a = #{format_number(force)} N ÷ #{format_number(mass)} kg = #{format_number(acceleration)} m/s²"
+
+        step "a = F ÷ m"
+        division_steps(force, mass, acceleration)
+        step "a = #{format_number(acceleration)} m/s²"
       end
     end
   end

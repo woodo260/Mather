@@ -23,6 +23,7 @@ class PracticeController < ApplicationController
     @correct_answer = correct_answer
     @prompt         = stored["prompt"]
     @explanation    = stored["explanation"]
+    @steps          = stored["steps"] || []
     @question_type  = stored["type"]
 
     # Update in-session stats
@@ -51,7 +52,8 @@ class PracticeController < ApplicationController
             user_answer: @user_answer,
             correct_answer: @correct_answer,
             prompt: @prompt,
-            explanation: @explanation
+            explanation: @explanation,
+            steps: @steps
           }
         )
       end
@@ -81,7 +83,8 @@ class PracticeController < ApplicationController
       "type"        => @question.class.key,
       "answer"      => @question.answer,
       "prompt"      => @question.prompt,
-      "explanation" => @question.explanation
+      "explanation" => @question.explanation,
+      "steps"       => @question.steps
     }
   end
 end

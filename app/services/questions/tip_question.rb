@@ -29,6 +29,13 @@ module Questions
         @hint        = "#{rate}% of $#{format_number(bill)}: multiply by #{rate / 100.0}"
         @explanation = "$#{format_number(bill)} × #{rate / 100.0} = $#{format_number(tip)}"
       end
+
+      percent_of_steps(rate, bill, prefix: "$")
+      if ask_total
+        step "Add tip to bill: $#{fmt_step(bill)} + $#{fmt_step(tip)} = $#{format_number(total)}"
+      else
+        step "Tip = $#{format_number(tip)}"
+      end
     end
   end
 end

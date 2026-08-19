@@ -33,16 +33,28 @@ module Questions
         @answer      = power
         @hint        = "P = V × I"
         @explanation = "P = #{format_number(voltage)} V × #{format_number(current)} A = #{format_number(power)} W"
+
+        step "P = V × I"
+        multiplication_steps(voltage, current)
+        step "P = #{format_number(power)} W"
       when :voltage
         @prompt      = "A #{appliance[:name]} consumes #{format_number(power)} W of power and draws #{format_number(current)} A of current. What is the voltage (V)?"
         @answer      = voltage
         @hint        = "V = P ÷ I"
         @explanation = "V = #{format_number(power)} W ÷ #{format_number(current)} A = #{format_number(voltage)} V"
+
+        step "V = P ÷ I"
+        division_steps(power, current, voltage)
+        step "V = #{format_number(voltage)} V"
       when :current
         @prompt      = "A #{appliance[:name]} consumes #{format_number(power)} W of power at #{format_number(voltage)} V. What is the current in amps (A)?"
         @answer      = round_to(current)
         @hint        = "I = P ÷ V"
         @explanation = "I = #{format_number(power)} W ÷ #{format_number(voltage)} V = #{format_number(current)} A"
+
+        step "I = P ÷ V"
+        division_steps(power, voltage, current)
+        step "I = #{format_number(current)} A"
       end
     end
   end

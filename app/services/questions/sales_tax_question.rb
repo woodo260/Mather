@@ -25,6 +25,12 @@ module Questions
         @answer      = round_to(price)
         @hint        = "Divide the total by (1 + #{rate}/100) = #{(1 + rate / 100.0).round(4)}"
         @explanation = "$#{format_number(total)} ÷ #{(1 + rate / 100.0).round(4)} = $#{format_number(price)}"
+
+        divisor = (1 + rate / 100.0).round(4)
+        step "The total already includes the #{fmt_step(rate)}% tax"
+        step "Total = price × #{divisor}, so divide to undo it"
+        step "Estimate: $#{fmt_step(total)} − #{fmt_step(rate)}% ≈ $#{fmt_step(total * (1 - rate / 100.0))} (slightly low)"
+        step "Exact: $#{fmt_step(total)} ÷ #{divisor} = $#{format_number(price)}"
       else
         tax    = round_to(price * rate / 100.0)
         total  = round_to(price + tax)
@@ -32,6 +38,9 @@ module Questions
         @answer      = total
         @hint        = "Multiply $#{format_number(price)} by #{(1 + rate / 100.0).round(4)}"
         @explanation = "$#{format_number(price)} × #{(1 + rate / 100.0).round(4)} = $#{format_number(total)}"
+
+        percent_of_steps(rate, price, prefix: "$")
+        step "Add the tax: $#{fmt_step(price)} + $#{fmt_step(tax)} = $#{format_number(total)}"
       end
     end
   end
