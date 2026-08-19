@@ -25,10 +25,50 @@
         <%= f.text_field :answer,
               placeholder: "Your answer…",
               autocomplete: "off",
-              data: { answer_target: "input", action: "keydown->answer#submit keydown->answer#filter" },
-              class: "flex-1 border border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-center font-mono" %>
+              data: { answer_target: "input", action: "keydown->answer#submit keydown->answer#filter input->answer#syncDisplay" },
+              class: "hidden md:block flex-1 border border-gray-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-center font-mono" %>
         <%= f.submit "Check",
-              class: "bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors cursor-pointer shadow-sm" %>
+              class: "hidden md:block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors cursor-pointer shadow-sm" %>
+      </div>
+
+      <%# Mobile: on-screen button keypad instead of the text box %>
+      <div class="md:hidden space-y-3">
+        <div data-answer-target="display"
+             class="border border-gray-300 rounded-xl px-4 py-3 text-lg text-center font-mono min-h-[52px] flex items-center justify-center text-gray-400 bg-white">
+          Your answer…
+        </div>
+
+        <div class="grid grid-cols-4 gap-2">
+          <% %w[1 2 3].each do |n| %>
+            <button type="button" data-action="answer#press" data-answer-key-param="<%= n %>"
+                    class="h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 font-mono text-xl font-semibold text-gray-900 transition-colors touch-manipulation"><%= n %></button>
+          <% end %>
+          <button type="button" data-action="answer#backspace"
+                  class="h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 flex items-center justify-center text-gray-700 transition-colors touch-manipulation" aria-label="Backspace">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l-7-7 7-7M5 12h15"/>
+            </svg>
+          </button>
+
+          <% %w[4 5 6].each do |n| %>
+            <button type="button" data-action="answer#press" data-answer-key-param="<%= n %>"
+                    class="h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 font-mono text-xl font-semibold text-gray-900 transition-colors touch-manipulation"><%= n %></button>
+          <% end %>
+          <button type="button" data-action="answer#press" data-answer-key-param="-"
+                  class="h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 font-mono text-xl font-semibold text-gray-900 transition-colors touch-manipulation" aria-label="Minus">&minus;</button>
+
+          <% %w[7 8 9].each do |n| %>
+            <button type="button" data-action="answer#press" data-answer-key-param="<%= n %>"
+                    class="h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 font-mono text-xl font-semibold text-gray-900 transition-colors touch-manipulation"><%= n %></button>
+          <% end %>
+          <button type="button" data-action="answer#press" data-answer-key-param="."
+                  class="h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 font-mono text-xl font-semibold text-gray-900 transition-colors touch-manipulation" aria-label="Decimal point">.</button>
+
+          <button type="button" data-action="answer#press" data-answer-key-param="0"
+                  class="col-span-2 h-14 rounded-xl bg-gray-100 hover:bg-gray-200 active:bg-gray-300 font-mono text-xl font-semibold text-gray-900 transition-colors touch-manipulation">0</button>
+          <%= f.submit "Check",
+                class: "col-span-2 h-14 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors cursor-pointer shadow-sm touch-manipulation" %>
+        </div>
       </div>
 
     <% end %>
