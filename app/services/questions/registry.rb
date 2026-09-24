@@ -14,6 +14,10 @@ module Questions
       "percentage"          => "Questions::PercentageQuestion",
       "temperature"         => "Questions::TemperatureQuestion",
       "tip_calculation"     => "Questions::TipQuestion",
+      "squaring"             => "Questions::SquaringQuestion",
+      "times_eleven"         => "Questions::TimesElevenQuestion",
+      "difference_of_squares" => "Questions::DifferenceOfSquaresQuestion",
+      "multiply_shortcuts"   => "Questions::MultiplyShortcutsQuestion",
       "speed_distance_time"  => "Questions::SpeedDistanceTimeQuestion",
       "simple_interest"      => "Questions::SimpleInterestQuestion",
       "ohms_law"             => "Questions::OhmsLawQuestion",
@@ -32,6 +36,7 @@ module Questions
     # Every key in TYPES must appear in exactly one category here.
     CATEGORIES = {
       "Everyday Math"          => %w[times_tables division sales_tax percentage tip_calculation simple_interest],
+      "Mental Math Tricks"     => %w[squaring times_eleven difference_of_squares multiply_shortcuts],
       "Length Conversion"      => %w[length_miles_km length_feet_meters length_inches_cm length_yards_meters],
       "Weight Conversion"      => %w[weight_pounds_kg weight_ounces_grams weight_stones_kg],
       "Temperature Conversion" => %w[temperature],
