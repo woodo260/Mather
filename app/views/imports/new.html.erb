@@ -1,0 +1,51 @@
+<% content_for :title, "Import deck – Mather" %>
+
+<div class="space-y-8">
+  <div>
+    <%= link_to "← All decks", decks_path, class: "text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" %>
+    <h1 class="mt-2 text-3xl font-bold text-gray-900 dark:text-gray-100">Import a deck</h1>
+    <p class="mt-1 text-gray-500 dark:text-gray-400">Pull a shared deck straight from AnkiWeb, or upload an Anki package or JSON file.</p>
+  </div>
+
+  <%# From AnkiWeb %>
+  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">From AnkiWeb</h2>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      Paste a shared-deck link (e.g. <code class="text-xs">ankiweb.net/shared/info/1234567890</code>) or just its ID.
+      Browse decks at <%= link_to "ankiweb.net/shared/decks", "https://ankiweb.net/shared/decks", target: "_blank", rel: "noopener", class: "text-indigo-600 dark:text-indigo-400 hover:underline" %>.
+    </p>
+    <%= form_with url: ankiweb_imports_path, method: :post, class: "mt-4 flex flex-col sm:flex-row gap-3" do |f| %>
+      <%= f.text_field :ankiweb,
+            placeholder: "https://ankiweb.net/shared/info/…  or  1234567890",
+            class: "flex-1 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-4 py-2 text-sm focus:border-indigo-500 focus:ring-indigo-500" %>
+      <%= f.submit "Download & import",
+            class: "flex-shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm text-sm cursor-pointer" %>
+    <% end %>
+    <p class="mt-2 text-xs text-gray-400 dark:text-gray-500">AnkiWeb limits anonymous downloads; if it asks you to log in, download the <code>.apkg</code> in your browser and upload it below.</p>
+  </div>
+
+  <%# From a file %>
+  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">From a file</h2>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Upload an Anki package (<code>.apkg</code>) or a JSON deck (<code>.json</code>).</p>
+    <%= form_with url: file_imports_path, method: :post, class: "mt-4 flex flex-col sm:flex-row gap-3" do |f| %>
+      <%= f.file_field :file, accept: ".apkg,.colpkg,.json,application/json",
+            class: "flex-1 text-sm text-gray-600 dark:text-gray-400 file:mr-3 file:rounded-xl file:border-0 file:bg-gray-100 dark:file:bg-gray-800 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 dark:file:text-gray-200" %>
+      <%= f.submit "Import file",
+            class: "flex-shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm text-sm cursor-pointer" %>
+    <% end %>
+
+    <details class="mt-4 text-sm text-gray-500 dark:text-gray-400">
+      <summary class="cursor-pointer font-medium text-gray-600 dark:text-gray-300">JSON format</summary>
+      <p class="mt-2">A deck object with a list of cards. <code>description</code> is optional; <code>front</code>/<code>back</code> may also be written as <code>question</code>/<code>answer</code>.</p>
+      <pre class="mt-2 overflow-x-auto rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 p-4 text-xs text-gray-700 dark:text-gray-300"><code>{
+  "name": "Ohm's Law",
+  "description": "Basic electrical relationships",
+  "cards": [
+    { "front": "V = ?", "back": "I × R" },
+    { "front": "P = ?", "back": "V × I" }
+  ]
+}</code></pre>
+    </details>
+  </div>
+</div>

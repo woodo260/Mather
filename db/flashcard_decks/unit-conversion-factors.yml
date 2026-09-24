@@ -1,0 +1,26 @@
+slug: unit-conversion-factors
+name: Unit Conversion Factors
+description: >-
+  Handy conversion factors for the length, weight and temperature questions in
+  Mather. Approximate multipliers good enough for mental math.
+cards:
+  - front: "Miles → kilometres?"
+    back: "× 1.609  (1 mi ≈ 1.61 km)"
+  - front: "Kilometres → miles?"
+    back: "× 0.621  (1 km ≈ 0.62 mi)"
+  - front: "Feet → metres?"
+    back: "× 0.3048  (1 ft ≈ 0.30 m)"
+  - front: "Inches → centimetres?"
+    back: "× 2.54  (exact)"
+  - front: "Yards → metres?"
+    back: "× 0.9144  (1 yd ≈ 0.91 m)"
+  - front: "Pounds → kilograms?"
+    back: "× 0.4536  (1 lb ≈ 0.45 kg)"
+  - front: "Ounces → grams?"
+    back: "× 28.35  (1 oz ≈ 28.3 g)"
+  - front: "Stones → kilograms?"
+    back: "× 6.35  (1 st ≈ 6.35 kg)"
+  - front: "Celsius → Fahrenheit?"
+    back: "°F = °C × 9/5 + 32"
+  - front: "Fahrenheit → Celsius?"
+    back: "°C = (°F − 32) × 5/9"

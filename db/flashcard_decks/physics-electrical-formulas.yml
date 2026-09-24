@@ -1,0 +1,18 @@
+slug: physics-electrical-formulas
+name: Physics & Electrical Formulas
+description: >-
+  Core formulas behind Mather's physics and electrical question types. Recall the
+  equation from the quantity you're solving for.
+cards:
+  - front: "Ohm's law — voltage?"
+    back: "V = I × R  (voltage = current × resistance)"
+  - front: "Electrical power?"
+    back: "P = V × I  (power = voltage × current)"
+  - front: "Newton's second law?"
+    back: "F = m × a  (force = mass × acceleration)"
+  - front: "Kinetic energy?"
+    back: "KE = ½ × m × v²"
+  - front: "Work done by a force?"
+    back: "W = F × d  (work = force × distance)"
+  - front: "Speed from distance and time?"
+    back: "v = d ÷ t  (speed = distance ÷ time)"

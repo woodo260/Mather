@@ -1,0 +1,5 @@
+<% if card %>
+  <%= render "reviews/card", card: card, deck: deck, scope: scope, remaining: remaining %>
+<% else %>
+  <%= render "reviews/done", deck: deck %>
+<% end %>

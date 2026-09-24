@@ -10,7 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_16_185437) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_18_122136) do
+  create_table "card_reviews", force: :cascade do |t|
+    t.integer "card_id", null: false
+    t.datetime "created_at", null: false
+    t.date "due_on"
+    t.float "ease_factor", default: 2.5, null: false
+    t.integer "interval_days", default: 0, null: false
+    t.datetime "last_reviewed_at"
+    t.integer "repetitions", default: 0, null: false
+    t.string "session_token", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_reviews_on_card_id"
+    t.index ["session_token", "card_id"], name: "index_card_reviews_on_session_token_and_card_id", unique: true
+    t.index ["session_token", "due_on"], name: "index_card_reviews_on_session_token_and_due_on"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.text "back", null: false
+    t.datetime "created_at", null: false
+    t.integer "deck_id", null: false
+    t.text "front", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["deck_id"], name: "index_cards_on_deck_id"
+  end
+
+  create_table "decks", force: :cascade do |t|
+    t.boolean "builtin", default: false, null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name", null: false
+    t.string "session_token"
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_token"], name: "index_decks_on_session_token"
+    t.index ["slug"], name: "index_decks_on_slug", unique: true
+  end
+
   create_table "practice_answers", force: :cascade do |t|
     t.boolean "correct", null: false
     t.datetime "created_at", null: false
@@ -23,4 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_185437) do
     t.index ["session_token", "created_at"], name: "index_practice_answers_on_session_token_and_created_at"
     t.index ["session_token"], name: "index_practice_answers_on_session_token"
   end
+
+  add_foreign_key "card_reviews", "cards"
+  add_foreign_key "cards", "decks"
 end

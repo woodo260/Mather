@@ -1,0 +1,13 @@
+<% content_for :title, "Review – Mather" %>
+
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <%= link_to (@deck ? "← #{@deck.name}" : "← All decks"),
+          (@deck ? deck_path(@deck) : decks_path),
+          class: "text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400" %>
+  </div>
+
+  <div id="review-frame">
+    <%= render "reviews/frame", card: @card, deck: @deck, scope: @scope, remaining: @remaining %>
+  </div>
+</div>

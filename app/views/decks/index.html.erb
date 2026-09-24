@@ -1,0 +1,65 @@
+<% content_for :title, "Flashcards – Mather" %>
+
+<div class="space-y-8">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Flashcards</h1>
+      <p class="mt-1 text-gray-500 dark:text-gray-400">Spaced-repetition decks. Flip each card and rate how well you knew it.</p>
+    </div>
+    <div class="flex-shrink-0 flex gap-2">
+      <%= link_to "Import", new_import_path,
+            class: "text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 font-semibold px-4 py-2 rounded-xl hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors text-sm" %>
+      <%= link_to "+ New deck", new_deck_path,
+            class: "bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm text-sm" %>
+    </div>
+  </div>
+
+  <% if @total_due.positive? %>
+    <%= link_to review_all_path,
+          class: "block bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900 rounded-2xl px-6 py-4 hover:bg-indigo-100 dark:hover:bg-indigo-950/60 transition-colors" do %>
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="font-semibold text-indigo-700 dark:text-indigo-300">Review all due</div>
+          <div class="text-sm text-indigo-500 dark:text-indigo-400"><%= pluralize(@total_due, "card") %> due across your decks</div>
+        </div>
+        <span class="text-indigo-600 dark:text-indigo-400 font-semibold">Start →</span>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% [ [ "Built-in decks", @builtin_decks ], [ "Your decks", @my_decks ] ].each do |title, decks| %>
+    <div>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3"><%= title %></h2>
+      <% if decks.empty? %>
+        <p class="text-sm text-gray-400 dark:text-gray-500">
+          <%= title == "Your decks" ? "You haven't created any decks yet." : "None." %>
+        </p>
+      <% else %>
+        <div class="space-y-3">
+          <% decks.each do |deck| %>
+            <% counts = @counts[deck] %>
+            <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-5 flex items-center justify-between gap-4">
+              <div class="min-w-0">
+                <%= link_to deck.name, deck_path(deck),
+                      class: "font-semibold text-gray-900 dark:text-gray-100 hover:text-indigo-600 dark:hover:text-indigo-400" %>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 flex flex-wrap gap-x-3">
+                  <span><%= pluralize(counts[:total], "card") %></span>
+                  <% if counts[:due].positive? %><span class="text-amber-600 dark:text-amber-400"><%= counts[:due] %> due</span><% end %>
+                  <% if counts[:new].positive? %><span class="text-indigo-600 dark:text-indigo-400"><%= counts[:new] %> new</span><% end %>
+                </div>
+              </div>
+              <div class="flex-shrink-0 flex gap-2 text-sm">
+                <% if (counts[:due] + counts[:new]).positive? %>
+                  <%= link_to "Review", review_deck_path(deck),
+                        class: "bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl transition-colors shadow-sm" %>
+                <% end %>
+                <%= link_to "Manage", deck_path(deck),
+                      class: "text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

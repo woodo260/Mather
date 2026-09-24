@@ -1,0 +1,33 @@
+slug: awg-ampacity
+name: AWG Wire Gauge Current Capacity
+description: >-
+  Ampacity of common copper wire gauges per NEC Table 310.16, copper conductor,
+  75 °C insulation column (e.g. THWN/THHN at 75 °C terminations). Reference for
+  study only — always verify against the current code and conditions of use.
+cards:
+  - front: "Ampacity of 14 AWG copper (75 °C)?"
+    back: "20 A"
+  - front: "Ampacity of 12 AWG copper (75 °C)?"
+    back: "25 A"
+  - front: "Ampacity of 10 AWG copper (75 °C)?"
+    back: "35 A"
+  - front: "Ampacity of 8 AWG copper (75 °C)?"
+    back: "50 A"
+  - front: "Ampacity of 6 AWG copper (75 °C)?"
+    back: "65 A"
+  - front: "Ampacity of 4 AWG copper (75 °C)?"
+    back: "85 A"
+  - front: "Ampacity of 3 AWG copper (75 °C)?"
+    back: "100 A"
+  - front: "Ampacity of 2 AWG copper (75 °C)?"
+    back: "115 A"
+  - front: "Ampacity of 1 AWG copper (75 °C)?"
+    back: "130 A"
+  - front: "Ampacity of 1/0 AWG copper (75 °C)?"
+    back: "150 A"
+  - front: "Ampacity of 2/0 AWG copper (75 °C)?"
+    back: "175 A"
+  - front: "Ampacity of 3/0 AWG copper (75 °C)?"
+    back: "200 A"
+  - front: "Ampacity of 4/0 AWG copper (75 °C)?"
+    back: "230 A"
