@@ -44,18 +44,21 @@ class PracticeController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.update(
-          "question-frame",
-          partial: "practice/feedback",
-          locals: {
-            correct: @correct,
-            user_answer: @user_answer,
-            correct_answer: @correct_answer,
-            prompt: @prompt,
-            explanation: @explanation,
-            steps: @steps
-          }
-        )
+        render turbo_stream: [
+          turbo_stream.update(
+            "question-frame",
+            partial: "practice/feedback",
+            locals: {
+              correct: @correct,
+              user_answer: @user_answer,
+              correct_answer: @correct_answer,
+              prompt: @prompt,
+              explanation: @explanation,
+              steps: @steps
+            }
+          ),
+          turbo_stream.replace("session-stats", partial: "practice/stats_bar")
+        ]
       end
       format.html { redirect_to practice_path }
     end
